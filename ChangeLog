@@ -1,0 +1,594 @@
+2002-10-15  Soren Ager  <sag@poboxes.com>
+
+        * readme.txt:
+        Updated with release 5 information
+
+        * aslGlobals.pas:
+        Updated to release 5
+
+2002-10-02  Soren Ager  <sag@poboxes.com>
+
+        * OOExample/SMTPSendHTML.pas, aslSMTPClient.pas:
+        Added Kevin McCoy's HTML message support to aslSMTPClient also an example
+        program is included to show how to use it. Added message priority (MS uses
+        it for return-receipts), and X-Mailer used to identify the application
+        that sent the mail.
+
+2002-10-01  Soren Ager  <sag@poboxes.com>
+
+        * readme.txt:
+        More release 5 info
+
+        * OOExample/POP3Server.pas, OOExample/SMTPSend.pas,
+          OOExample/SMTPServer.pas, OOExample/CVSClient.pas,
+          OOExample/FTPClient.pas, OOExample/FingerD.pas,
+          OOExample/NNTPClient.pas, OOExample/POP3Get.pas, OOExample/otcpc.pas,
+          OOExample/otcps.pas, OOExample/AutoMailer.pas:
+        Added the unit HeapChk to the uses clause if the program is compiled with
+        'debug' defined
+
+2002-09-30  Soren Ager  <sag@poboxes.com>
+
+        * aslFTPClient.pas:
+        The ftp client is now complete with both active and passive support
+
+        * aslSocket.pas:
+        Added function SockClientIP to return the client ip address
+
+        * aslAbsSocket.pas:
+        Added check on Connect property in TAbsSocket.Destroy before calling
+        TAbsSocket.Disconnect
+
+2002-09-29  Soren Ager  <sag@poboxes.com>
+
+        * aslTCPSocket.pas:
+        Last fix for TBufTCPClientSocket.ReadLn didn't work if the buffer already
+        contained the whole line
+
+        * aslAbsClient.pas, aslAbsSocket.pas:
+        Moved connect check down to TabsSocket so no read/write on a not connected
+        socket raises an exception.
+
+2002-07-25  Soren Ager  <sag@poboxes.com>
+
+        * readme.txt:
+        Updated with expected release 5 stuff
+
+2002-07-24  Soren Ager  <sag@poboxes.com>
+
+        * aslAbsClient.pas:
+        Added check for disconnect in the line read routines
+
+        * aslAbsSocket.pas, aslTCPSocket.pas:
+        Added a "Connected" property to TabsSocket. Changed behavior of reads to
+        not raise exceptions on number of bytes read is 0 (= disconnect)
+
+        * aslAbsClient.pas:
+        Made sure FLastRespose and FLastResponseCode gets cleared on each command
+        sent.
+
+        * aslAbsServer.pas, aslAbsSocket.pas:
+        Created a new property on TaslSocket called LastErrNo that is updated
+        from SockErrNo after each socket call. SockErrNo has then been chnaged to
+        protected so it is not to be used anymore.
+        A new conditional define "aslRaiseOnDoubleErr" will raise an exception if
+        two errors occurs without LastErrNo being checked between the calls.
+
+2002-07-23  Soren Ager  <sag@poboxes.com>
+
+        * aslAbsClient.pas:
+        TabsClient.Connect didn't check if it actually connected before trying
+        to get reponse from remote
+
+        * aslAbsSocket.pas:
+        Fixed incorrect use of TaslAPIRet type
+
+        * aslTypes.pas:
+        New file.
+
+2002-07-18  Soren Ager  <sag@poboxes.com>
+
+        * aslFTPClient.pas:
+        Fixed a problem with the data connection
+
+        * aslUtils.pas:
+        Added NextWordDelim function to return next work with specified delimiter
+
+        * aslTCPSocket.pas:
+        TBufTCPClientSocket.ReadLn would sometimes not return the whole line
+        due to an uninitialized variable
+
+2002-05-26  Soren Ager  <sag@poboxes.com>
+
+        * aslDefine.inc:
+        Added $T- as aslSocket.pas requires it
+
+        * readme.txt:
+        Changed installation instructions to say the asl directory has to be first
+        in the unit and include path
+
+2002-04-28  Soren Ager  <sag@poboxes.com>
+
+        * types.pas:
+        Added compiler directive &Comments-
+
+        * OOExample/SMTPSend.pas:
+        Crashed if an attachment was specified without specifying encoding, now
+        it defaults to enc64 (Kevin G.McCoy)
+
+2002-04-22  Soren Ager  <sag@poboxes.com>
+
+        * readme.txt:
+        Updated for with information about release 4
+
+        * aslGlobals.pas:
+        Updated to release 4
+
+        * aslCVSClient.pas:
+        Code cleanup
+
+        * aslMimeTypes.pas:
+        Fixed a memory problem if huge strings was used (Robert Boeck)
+
+2002-03-29  Soren Ager  <sag@poboxes.com>
+
+        * aslPOP3Client.pas:
+        Changed TAbsPOP3Client.ListOneMsg to a function that returns the message
+        size
+
+2002-03-22  Soren Ager  <sag@poboxes.com>
+
+        * aslPOP3Client.pas, aslSMTPClient.pas, aslAbsClient.pas, aslFTPClient.pas,
+          aslNNTPClient.pas:
+        Changed .Connect to a function returning a boolean and added .isFatalError
+
+        * aslAbsSocket.pas:
+        Added error checking in the Get/Set methods
+
+2002-01-25  Soren Ager  <sag@poboxes.com>
+
+        * aslNNTPClient.pas:
+        Fixed a bug in "NewGroups" if no distributions were specified
+        (Robert Boeck)
+
+        * aslCVSClient.pas:
+        New unit to hande the cvs pserver protocol.
+
+        * aslSMTPClient.pas:
+        Fixed a small spelling error.
+
+2002-01-20  Soren Ager  <sag@poboxes.com>
+
+        * aslGlobals.pas:
+        Updated copyright year
+
+2001-03-16  Soren Ager  <sag@poboxes.com>
+
+        * aslAbsClient.pas:
+        Added a "SendCommandNoResponse" method to send commands that don't return
+        a response from the server.
+        Changed "FLastResponse" and "FLastResponseCode" from private to protected.
+
+        * aslAbsClient.pas:
+        Added property "GetResponseAfterConnect" to TAbsClient it makes it possible
+        to connect to servers that don't send a greeting after a client connects.
+
+        * aslTCPSocket.pas:
+        Added a "LineSep" property to TTCPClientSocket. It chan be used to change
+        the line seperator used in WriteLn.
+
+2001-03-02  Soren Ager  <sag@poboxes.com>
+
+        * aslNNTPClient.pas, aslPOP3Client.pas, aslSMTPClient.pas:
+        Removed call to Quit in .Destroy from the TAbsXXXClient classes.
+
+2001-02-04  Soren Ager  <sag@poboxes.com>
+
+        * aslTCPSocket.pas:
+        TTCPClientSocket.Connect did not display the error code if an exception
+        was raised.
+
+2001-02-03  Soren Ager  <sag@poboxes.com>
+
+        * aslUDPSocket.pas, aslAbsClient.pas, aslAbsServer.pas, aslAbsSocket.pas,
+          aslTCPSocket.pas:
+        Changed the LogLine to an event (include sender in the call and change
+        name to DoLogLine)
+
+        * aslAbsClient.pas:
+        Created ReadLn/WriteLn events in TAbsClient and attached them to the events
+        from TTCPClientSocket.
+
+        * aslTCPSocket.pas:
+        Added WriteLn & ReadLn events to TTCPClientSocket
+
+2001-01-27  Soren Ager  <sag@poboxes.com>
+
+        * aslNNTPClient.pas:
+        Fixed .AuthInfo to work if just username is required (Robert Boeck)
+
+        * aslNNTPClient.pas:
+        Article starting with a period was not escaped correctly in .Post
+        (Robert Boeck)
+
+        * aslAbsSocket.pas:
+        Fixed a spelling error and wrong return error when a port could not be
+        resolved in .ResolvePort (Robert Boeck)
+
+        * aslGlobals.pas:
+        Changed version to 4á and copyright to -01
+
+2001-01-20  Soren Ager  <sag@poboxes.com>
+
+        * readme.txt:
+        Updated release date and copyright years
+
+        * aslNNTPClient.pas:
+        Added XOver, Date and AuthInfo from code supplied by Robert Boeck
+
+2001-01-15  Soren Ager  <sag@poboxes.com>
+
+        * aslFTPClient.pas:
+        Added an 'Actual' parameter to 'TFTPReadFileProc' and added ftp example
+        program.
+
+2000-08-24  Soren Ager  <sag@poboxes.com>
+
+        * aslGlobals.pas:
+        Updated release to 3 and copyright to -2000
+
+        * aslNNTPClient.pas:
+        Fixed a bug in .Post and .IHave that generated an array index out of
+        bounds error.
+
+        * aslAbsClient.pas, aslAbsServer.pas:
+        Fixed error in .GetMsgLines that caused it to exit if a line contained
+        just two dots.
+
+        * aslDefine.inc:
+        Changed to only force needed compiler switches and added conditional
+        define "Debug" around switches needed for debugging
+
+        * aslTCPSocket.pas:
+        Fixed an uninitialized variable in .ReadLn (Reported by Robert Boeck)
+
+        * aslTCPSocket.pas:
+        Fixed a bug in TBufTCPClientSocket.ReadLn that caused it to halt with a
+        range check error if no data was available (Reported by Robert Boeck)
+
+1999-11-19  Soren Ager  <sag@poboxes.com>
+
+        * aslFTPClient.pas:
+        First version of the FTP client class
+
+        * aslAbsClient.pas:
+        Changed GetResponse to be able to hande extra info from ftp
+
+        * aslAbsClient.pas:
+        Moved FSocket from Private to Protected and set it to nil after dispose
+
+        * aslTCPSocket.pas:
+        The read functions did not raise exception if other end closed connection.
+
+1999-11-11  Soren Ager  <sag@poboxes.com>
+
+        * readme.txt:
+        Added information about the layered design of asl
+
+1999-07-15  Soren Ager  <sag@poboxes.com>
+
+        * OS2Socket.pas, Types.pas, WinSock.pas, nerrno.pas, netdb.pas, sockin.pas,
+          utils.pas, CTypes.pas, ioctl.pas:
+        Added needed compiler directives to source files
+
+1999-07-13  Soren Ager  <sag@poboxes.com>
+
+        * aslSocket.pas:
+        Update to work under Win32
+
+1999-05-26  Soren Ager  <sag@poboxes.com>
+
+        * aslTCPSocket.pas:
+        Changed return values from Read/Write methods from word to integer
+
+        * aslAbsSocket.pas, aslDecode.pas, aslEncode.pas, aslMimeTypes.pas,
+          aslPOP3Client.pas, aslSMTPClient.pas:
+        Added "OVERRIDE" to all destructors
+
+        * aslSMTPClient.pas:
+        Dwayne Heaton: The changes I made to aslSMTPClient allow the mime header to
+        be switched off if they are not needed (any base64 encoded file
+        automatically turns them on)
+
+        * aslDecode.pas:
+        Dwayne Heaton: The decode routine for uu/xx will now decode the file to
+        another directory (instead of current)
+        I've also updated the base64 decode line routine. It is slightly quicker
+        with less code ;)
+
+1999-04-14  Soren Ager  <sag@poboxes.com>
+
+        * readme.txt:
+        Updated to release 2
+
+        * aslSMTPClient.pas:
+        Updated to support attachments
+
+        * aslUtils.pas, aslEncode.pas, aslMimeTypes.pas, aslDecode.pas:
+        Added en-/decode routines by Dwayne Heaton
+
+        * aslSMTPServer.pas:
+        SMTP server class including an example program
+
+        * aslPOP3Server.pas:
+        Added comments about command and state constants
+
+        * aslAbsServer.pas:
+        Added support for space in command to TCmdList
+
+1999-03-25  Soren Ager  <sag@poboxes.com>
+
+        * aslAbsClient.pas:
+        Longer timeout for .GetLines and minor code cleanup
+
+        * .cvsignore:
+        Updated
+
+        * aslPOP3Server.pas:
+        POP3 server class including an example program
+
+        * aslAbsServer.pas:
+        Abstract classes for writing servers
+
+        * aslUtils.pas:
+        Misc. usefull procedures and functions
+
+        * aslClasses.pas:
+        Misc. usefull classes (just a TThread clone at the moment)
+
+1999-03-17  Soren Ager  <sag@poboxes.com>
+
+        * aslPOP3Client.pas:
+        Changed .List and .Uidl to use GetMsgLines instead of GetLines
+
+1999-03-16  Soren Ager  <sag@poboxes.com>
+
+        * aslPOP3Client.pas:
+        TAbsPOP3Client.Top did not always work on slow servers/lines as it used
+        GetLines
+        where it should use GetMsgLines (Reported by Boris Huertgen)
+
+1999-03-07  Soren Ager  <sag@poboxes.com>
+
+        * WinSock.pas:
+        Converted the ioctl constants FIO*
+
+        * aslAbsSocket.pas:
+        Changed sock_errono to SockErrNo
+
+1999-02-03  Soren Ager  <sag@poboxes.com>
+
+        * aslTCPSocket.pas:
+        Changed all socket error checking to check for rc<0
+
+1999-01-20  Soren Ager  <sag@poboxes.com>
+
+        * aslAbsSocket.pas:
+        Added properties for ReuseAddr & BytesAvail
+        Added methods to set and get linger option
+
+        * aslGlobals.pas:
+        Changed release to 2 and copyright to -99
+
+1999-01-19  Soren Ager  <sag@poboxes.com>
+
+        * ioctl.pas:
+        Code cleanup
+
+        * aslAbsSocket.pas, aslSocket.pas:
+        Implemented SetBlocking in TAbsSocket
+
+        * ioctl.pas:
+        Translated from ioctl.h
+
+        * readme.txt:
+        Added installation instructions
+
+1999-01-13  Soren Ager  <sag@poboxes.com>
+
+        * utils.pas, aslGlobals.pas, aslNNTPClient.pas, aslPOP3Client.pas,
+          aslSMTPClient.pas, aslSocket.pas, aslTCPSocket.pas, aslUDPSocket.pas,
+          nerrno.pas, netdb.pas, sockin.pas, CTypes.pas, OS2Socket.pas, Types.pas,
+          WinSock.pas, aslAbsClient.pas, aslAbsSocket.pas, aslDefine.inc:
+        Updated copyright to -99
+
+        * readme.txt:
+        Readme for release 1
+
+1998-12-16  Soren Ager  <sag@poboxes.com>
+
+        * aslNNTPClient.pas: Added a TAbsNNTPClient class.
+
+        * aslUDPSocket.pas, aslAbsClient.pas, aslAbsSocket.pas, aslNNTPClient.pas,
+          aslPOP3Client.pas, aslSMTPClient.pas, aslTCPSocket.pas:
+        Made a standard for exceptions and there use.
+
+1998-12-15  Soren Ager  <sag@poboxes.com>
+
+        * aslUDPSocket.pas: Didn't compile under Win32
+
+        * WinSock.pas, aslSocket.pas:
+        Fixed a bug in the definition of "fd_set" under Win32 which caused select
+        to fail.
+
+1998-12-14  Soren Ager  <sag@poboxes.com>
+
+        * aslSMTPClient.pas:
+        A "Subject" line was added to the header even if it was empty.
+
+        * aslPOP3Client.pas, aslSMTPClient.pas, aslAbsClient.pas, aslNNTPClient.pas:
+        Changed GetResponse to handle multi-line responses.
+
+1998-11-02  Soren Ager  <sag@poboxes.com>
+
+        * aslAbsSocket.pas, aslDefine.inc, aslGlobals.pas, aslNNTPClient.pas,
+          aslPOP3Client.pas, aslSMTPClient.pas, aslSocket.pas, aslTCPSocket.pas,
+          aslUDPSocket.pas, aslAbsClient.pas:
+        Added aslDefine.Inc and aslGlobals.Pas
+
+1998-10-12  Soren Ager  <sag@poboxes.com>
+
+        * aslAbsSocket.pas, aslSocket.pas, aslTCPSocket.pas:
+        Compilable under Win32 again
+
+1998-10-07  Soren Ager  <sag@poboxes.com>
+
+        * aslPOP3Client.pas:
+        Retr used GetLines instead of GetMsgLines => lines was logged
+
+1998-10-06  Soren Ager  <sag@poboxes.com>
+
+        * aslPOP3Client.pas, aslSMTPClient.pas, aslSocket.pas, aslTCPSocket.pas,
+          aslUDPSocket.pas, aslAbsClient.pas, aslAbsSocket.pas, aslNNTPClient.pas:
+        Code cleanup
+
+        * aslAbsSocket.pas, aslUDPSocket.pas:
+        Added Broadcast property to TAbsSocket
+
+        * aslAbsClient.pas, aslSMTPClient.pas, aslTCPSocket.pas:
+        Fixed a bug in TBufTCPClientSocket.WaitForDataTime
+
+        * aslAbsSocket.pas, aslNNTPClient.pas, aslPOP3Client.pas, aslSMTPClient.pas,
+          aslSocket.pas, aslTCPSocket.pas, aslUDPSocket.pas, aslAbsClient.pas:
+        Added platform independend inline socket functions in aslSocket (Sock*)
+        Made all variables in classes private
+
+1998-09-30  Soren Ager  <sag@poboxes.com>
+
+        * WinSock.pas, sockin.pas, utils.pas, OS2Socket.pas, aslAbsClient.pas,
+          aslAbsSocket.pas, aslNNTPClient.pas, aslPOP3Client.pas, aslSMTPClient.pas,
+          netdb.pas:
+        Changed all non standard compiler from '{$' to '{&'
+
+        * WinSock.pas, aslUDPSocket.pas:
+        Added an udp socket class
+
+        * aslAbsSocket.pas, aslSocket.pas, aslTCPSocket.pas, aslAbsClient.pas:
+        Added AbsSocket as base for all socket classes
+
+1998-09-29  Soren Ager  <sag@poboxes.com>
+
+        * aslAbsClient.pas, aslPOP3Client.pas, aslSMTPClient.pas, aslTCPSocket.pas:
+        Added a POP3Client and cleaned up the code a bit
+
+1998-09-28  Soren Ager  <sag@poboxes.com>
+
+        * aslSMTPClient.pas, aslTCPSocket.pas, aslAbsClient.pas, aslNNTPClient.pas:
+        Removed the "Error" postfix form Exception names
+
+        * aslSMTPClient.pas:
+        Added SMTP Client including example
+
+        * WinSock.pas:
+        Fixed misaligned code due to "Optimal fill"
+
+1998-09-22  Soren Ager  <sag@poboxes.com>
+
+        * aslAbsClient.pas:
+        Changed FSocket from TBufTCPClientSocket to TTCPClientSocket
+
+1998-09-21  Soren Ager  <sag@poboxes.com>
+
+        * aslNNTPClient.pas, aslSocket.pas, aslTCPSocket.pas, aslAbsClient.pas:
+        Added an "EabsException" as base for all exceptions
+
+1998-09-18  Soren Ager  <sag@poboxes.com>
+
+        * aslAbsClient.pas, aslNNTPClient.pas:
+        Added FGreeting property to TAbsClient
+        Changed GetTextLines/SendTextLines to GetMsgLines/SendMsgLines and added
+        GetLines/SendLines
+
+        * aslTCPSocket.pas:
+        Changed WitForDataTime to a function
+
+        * aslTCPSocket.pas, aslAbsClient.pas, aslNNTPClient.pas:
+        Moved GetTextLines to TAbsClient and added SendTextLines
+
+1998-09-17  Soren Ager  <sag@poboxes.com>
+
+        * WinSock.pas, aslSocket.pas, aslTCPSocket.pas:
+        Added support for Win32
+
+1998-09-16  Soren Ager  <sag@poboxes.com>
+
+        * aslAbsClient.pas:
+        Changed Abort to Disconnect
+
+1998-09-13  Soren Ager  <sag@poboxes.com>
+
+        * netdb.pas:
+        Fixed parameter declaration for gethostbyname
+
+        * aslNNTPClient.pas:
+        Removed the Abort method as is was the same as Disconnect
+
+1998-09-12  Soren Ager  <sag@poboxes.com>
+
+        * aslTCPSocket.pas:
+        Added a Protocol property and added properties for all other private variables
+
+1998-09-10  Soren Ager  <sag@poboxes.com>
+
+        * aslAbsClient.pas, aslNNTPClient.pas:
+        Added Service as a property
+
+1998-09-08  Soren Ager  <sag@poboxes.com>
+
+        * aslAbsClient.pas, aslNNTPClient.pas:
+        Added TAbsClient to serve as ancestor for all clients (NNTP, SMPT POP3 etc.)
+
+1998-08-27  Soren Ager  <sag@poboxes.com>
+
+        * aslNNTPClient.pas, aslTCPSocket.pas:
+        Moved logging to OnLogLine inside the class
+
+1998-08-25  Soren Ager  <sag@poboxes.com>
+
+        * aslNNTPClient.pas:
+        OO implementation of a NNTP Client incl. example program
+
+        * aslTCPSocket.pas:
+        OO interface to socket functions
+
+1998-08-18  Soren Ager  <sag@poboxes.com>
+
+        * OS2Socket.pas, netdb.pas:
+        Fixed parameter bug in gethostbyaddr
+
+1998-08-16  Soren Ager  <sag@poboxes.com>
+
+        * VP.VPO:
+        Removed VP.VPO
+
+        * .cvsignore, VP.VPO:
+        Added utils.pas to uses clause in Example\Compile.pas
+
+        * VP.VPO, OS2Socket.pas:
+        Added server example program tcps.pas and fixed bug in accept() definition
+
+        * VP.VPO, OS2Socket.pas, netdb.pas, sockin.pas, utils.pas:
+        Added example program tcpc.pas, and fixed a bug with the 'hostent' type
+
+        * .cvsignore, VP.VPO:
+        Added VP.VPO to repository
+
+        * CTypes.pas, OS2Socket.pas, Types.pas, nerrno.pas, netdb.pas, sockin.pas:
+        Added cvs keywords to comments
+
+1998-08-15  Soren Ager  <sag@poboxes.com>
+
+        * .cvsignore, CTypes.pas, OS2Socket.pas, Types.pas, nerrno.pas, netdb.pas,
+          sockin.pas:
+        First conversion of OS/2 sockets library
+
